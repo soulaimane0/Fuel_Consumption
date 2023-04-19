@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b32e3c565a784f4dbe1efdfff7bf17bc" Name="Diagram1">
+        <EntityTypeShape EntityType="Db_ALMATRANSModel.Bon" Width="1.5" PointX="6.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Db_ALMATRANSModel.Marque" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Db_ALMATRANSModel.Utilisateur" Width="1.5" PointX="1.375" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Db_ALMATRANSModel.Véhicule" Width="1.5" PointX="3.625" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="Db_ALMATRANSModel.FK__Bon__id_Vcl__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="Db_ALMATRANSModel.FK__Véhicule__id_mar__3C69FB99" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

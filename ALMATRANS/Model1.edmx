@@ -1,0 +1,579 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Db_ALMATRANSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bon">
+          <Key>
+            <PropertyRef Name="Num_Bon" />
+          </Key>
+          <Property Name="Num_Bon" Type="int" Nullable="false" />
+          <Property Name="date_Bon" Type="date" Nullable="false" />
+          <Property Name="nom_station" Type="varchar" MaxLength="45" />
+          <Property Name="id_Vcl" Type="int" Nullable="false" />
+          <Property Name="nom_Chauf" Type="varchar" MaxLength="30" />
+          <Property Name="Qté" Type="float" Nullable="false" />
+          <Property Name="prix_littre" Type="float" Nullable="false" />
+          <Property Name="prix_total" Type="float" />
+          <Property Name="photo" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Marque">
+          <Key>
+            <PropertyRef Name="id_marque" />
+          </Key>
+          <Property Name="id_marque" Type="int" Nullable="false" />
+          <Property Name="nom_marque" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Utilisateur">
+          <Key>
+            <PropertyRef Name="id_Util" />
+          </Key>
+          <Property Name="id_Util" Type="int" Nullable="false" />
+          <Property Name="nom_Util" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="mot_passe" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Véhicule">
+          <Key>
+            <PropertyRef Name="id_Vcl" />
+          </Key>
+          <Property Name="id_Vcl" Type="int" Nullable="false" />
+          <Property Name="immatriculation" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="id_marque" Type="int" Nullable="false" />
+          <Property Name="date_service" Type="date" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Bon__id_Vcl__3F466844">
+          <End Role="Véhicule" Type="Self.Véhicule" Multiplicity="1" />
+          <End Role="Bon" Type="Self.Bon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Véhicule">
+              <PropertyRef Name="id_Vcl" />
+            </Principal>
+            <Dependent Role="Bon">
+              <PropertyRef Name="id_Vcl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Véhicule__id_mar__3C69FB99">
+          <End Role="Marque" Type="Self.Marque" Multiplicity="1" />
+          <End Role="Véhicule" Type="Self.Véhicule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Marque">
+              <PropertyRef Name="id_marque" />
+            </Principal>
+            <Dependent Role="Véhicule">
+              <PropertyRef Name="id_marque" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="PS_AffBon" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="PS_AffBonNum" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NumBon" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PS_AffMarq" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="PS_AffMarqID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idMarq" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PS_AffVcl" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="PS_AffVclID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idVcl" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PS_AjouterBon" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NumBon" Type="int" Mode="In" />
+          <Parameter Name="dateBon" Type="date" Mode="In" />
+          <Parameter Name="nomStat" Type="varchar" Mode="In" />
+          <Parameter Name="idVcl" Type="int" Mode="In" />
+          <Parameter Name="nom_chauf" Type="varchar" Mode="In" />
+          <Parameter Name="Qte" Type="float" Mode="In" />
+          <Parameter Name="prixL" Type="float" Mode="In" />
+          <Parameter Name="prixToltal" Type="float" Mode="In" />
+          <Parameter Name="photo" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="PS_AjouterMarq" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idMarq" Type="int" Mode="In" />
+          <Parameter Name="nomMarq" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PS_AjouterVcl" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idVcl" Type="int" Mode="In" />
+          <Parameter Name="imma" Type="varchar" Mode="In" />
+          <Parameter Name="idMarq" Type="int" Mode="In" />
+          <Parameter Name="dateServ" Type="date" Mode="In" />
+        </Function>
+        <Function Name="PS_DateStatis" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="imma" Type="varchar" Mode="In" />
+          <Parameter Name="dateD" Type="date" Mode="In" />
+          <Parameter Name="dateF" Type="date" Mode="In" />
+        </Function>
+        <Function Name="PS_DgvStatis" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="PS_ImmStatis" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="imma" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PS_ModifierBon" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NumBon" Type="int" Mode="In" />
+          <Parameter Name="dateBon" Type="date" Mode="In" />
+          <Parameter Name="nomStat" Type="varchar" Mode="In" />
+          <Parameter Name="idVcl" Type="int" Mode="In" />
+          <Parameter Name="nom_chauf" Type="varchar" Mode="In" />
+          <Parameter Name="Qte" Type="float" Mode="In" />
+          <Parameter Name="prixL" Type="float" Mode="In" />
+          <Parameter Name="prixToltal" Type="float" Mode="In" />
+          <Parameter Name="photo" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="PS_ModifierMarq" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idMarq" Type="int" Mode="In" />
+          <Parameter Name="nomMarq" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PS_ModifierVcl" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idVcl" Type="int" Mode="In" />
+          <Parameter Name="imma" Type="varchar" Mode="In" />
+          <Parameter Name="idMarq" Type="int" Mode="In" />
+          <Parameter Name="dateServ" Type="date" Mode="In" />
+        </Function>
+        <Function Name="PS_SupprimerBon" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NumBon" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PS_SupprimerMarq" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idMarq" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PS_SupprimerVcl" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idVcl" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PS_Util" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nomUtil" Type="varchar" Mode="In" />
+          <Parameter Name="pass" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PS_Utilisateur" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nomUtil" Type="varchar" Mode="In" />
+          <Parameter Name="pass" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="Db_ALMATRANSModelStoreContainer">
+          <EntitySet Name="Bon" EntityType="Self.Bon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Marque" EntityType="Self.Marque" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Utilisateur" EntityType="Self.Utilisateur" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Véhicule" EntityType="Self.Véhicule" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Bon__id_Vcl__3F466844" Association="Self.FK__Bon__id_Vcl__3F466844">
+            <End Role="Véhicule" EntitySet="Véhicule" />
+            <End Role="Bon" EntitySet="Bon" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Véhicule__id_mar__3C69FB99" Association="Self.FK__Véhicule__id_mar__3C69FB99">
+            <End Role="Marque" EntitySet="Marque" />
+            <End Role="Véhicule" EntitySet="Véhicule" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Db_ALMATRANSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Bon">
+          <Key>
+            <PropertyRef Name="Num_Bon" />
+          </Key>
+          <Property Name="Num_Bon" Type="Int32" Nullable="false" />
+          <Property Name="date_Bon" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="nom_station" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="id_Vcl" Type="Int32" Nullable="false" />
+          <Property Name="nom_Chauf" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Qté" Type="Double" Nullable="false" />
+          <Property Name="prix_littre" Type="Double" Nullable="false" />
+          <Property Name="prix_total" Type="Double" />
+          <Property Name="photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Véhicule" Relationship="Self.FK__Bon__id_Vcl__3F466844" FromRole="Bon" ToRole="Véhicule" />
+        </EntityType>
+        <EntityType Name="Marque">
+          <Key>
+            <PropertyRef Name="id_marque" />
+          </Key>
+          <Property Name="id_marque" Type="Int32" Nullable="false" />
+          <Property Name="nom_marque" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Véhicule" Relationship="Self.FK__Véhicule__id_mar__3C69FB99" FromRole="Marque" ToRole="Véhicule" />
+        </EntityType>
+        <EntityType Name="Utilisateur">
+          <Key>
+            <PropertyRef Name="id_Util" />
+          </Key>
+          <Property Name="id_Util" Type="Int32" Nullable="false" />
+          <Property Name="nom_Util" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mot_passe" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Véhicule">
+          <Key>
+            <PropertyRef Name="id_Vcl" />
+          </Key>
+          <Property Name="id_Vcl" Type="Int32" Nullable="false" />
+          <Property Name="immatriculation" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_marque" Type="Int32" Nullable="false" />
+          <Property Name="date_service" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Bons" Relationship="Self.FK__Bon__id_Vcl__3F466844" FromRole="Véhicule" ToRole="Bon" />
+          <NavigationProperty Name="Marque" Relationship="Self.FK__Véhicule__id_mar__3C69FB99" FromRole="Véhicule" ToRole="Marque" />
+        </EntityType>
+        <Association Name="FK__Bon__id_Vcl__3F466844">
+          <End Role="Véhicule" Type="Self.Véhicule" Multiplicity="1" />
+          <End Role="Bon" Type="Self.Bon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Véhicule">
+              <PropertyRef Name="id_Vcl" />
+            </Principal>
+            <Dependent Role="Bon">
+              <PropertyRef Name="id_Vcl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Véhicule__id_mar__3C69FB99">
+          <End Role="Marque" Type="Self.Marque" Multiplicity="1" />
+          <End Role="Véhicule" Type="Self.Véhicule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Marque">
+              <PropertyRef Name="id_marque" />
+            </Principal>
+            <Dependent Role="Véhicule">
+              <PropertyRef Name="id_marque" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Db_ALMATRANSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bons" EntityType="Self.Bon" />
+          <EntitySet Name="Marques" EntityType="Self.Marque" />
+          <EntitySet Name="Utilisateurs" EntityType="Self.Utilisateur" />
+          <EntitySet Name="Véhicule" EntityType="Self.Véhicule" />
+          <AssociationSet Name="FK__Bon__id_Vcl__3F466844" Association="Self.FK__Bon__id_Vcl__3F466844">
+            <End Role="Véhicule" EntitySet="Véhicule" />
+            <End Role="Bon" EntitySet="Bons" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Véhicule__id_mar__3C69FB99" Association="Self.FK__Véhicule__id_mar__3C69FB99">
+            <End Role="Marque" EntitySet="Marques" />
+            <End Role="Véhicule" EntitySet="Véhicule" />
+          </AssociationSet>
+          <FunctionImport Name="PS_AffBon" ReturnType="Collection(Db_ALMATRANSModel.PS_AffBon_Result)" />
+          <FunctionImport Name="PS_AffBonNum" ReturnType="Collection(Db_ALMATRANSModel.PS_AffBonNum_Result)">
+          <Parameter Name="NumBon" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PS_AffMarq" ReturnType="Collection(Db_ALMATRANSModel.PS_AffMarq_Result)" />
+          <FunctionImport Name="PS_AffMarqID" ReturnType="Collection(Db_ALMATRANSModel.PS_AffMarqID_Result)">
+          <Parameter Name="idMarq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PS_AffVcl" ReturnType="Collection(Db_ALMATRANSModel.PS_AffVcl_Result)" />
+          <FunctionImport Name="PS_AffVclID" ReturnType="Collection(Db_ALMATRANSModel.PS_AffVclID_Result)">
+          <Parameter Name="idVcl" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PS_AjouterBon">
+            <Parameter Name="NumBon" Mode="In" Type="Int32" />
+            <Parameter Name="dateBon" Mode="In" Type="DateTime" />
+            <Parameter Name="nomStat" Mode="In" Type="String" />
+            <Parameter Name="idVcl" Mode="In" Type="Int32" />
+            <Parameter Name="nom_chauf" Mode="In" Type="String" />
+            <Parameter Name="Qte" Mode="In" Type="Double" />
+            <Parameter Name="prixL" Mode="In" Type="Double" />
+            <Parameter Name="prixToltal" Mode="In" Type="Double" />
+            <Parameter Name="photo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PS_AjouterMarq">
+            <Parameter Name="idMarq" Mode="In" Type="Int32" />
+            <Parameter Name="nomMarq" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PS_AjouterVcl">
+            <Parameter Name="idVcl" Mode="In" Type="Int32" />
+            <Parameter Name="imma" Mode="In" Type="String" />
+            <Parameter Name="idMarq" Mode="In" Type="Int32" />
+            <Parameter Name="dateServ" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="PS_ModifierBon">
+            <Parameter Name="NumBon" Mode="In" Type="Int32" />
+            <Parameter Name="dateBon" Mode="In" Type="DateTime" />
+            <Parameter Name="nomStat" Mode="In" Type="String" />
+            <Parameter Name="idVcl" Mode="In" Type="Int32" />
+            <Parameter Name="nom_chauf" Mode="In" Type="String" />
+            <Parameter Name="Qte" Mode="In" Type="Double" />
+            <Parameter Name="prixL" Mode="In" Type="Double" />
+            <Parameter Name="prixToltal" Mode="In" Type="Double" />
+            <Parameter Name="photo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PS_ModifierMarq">
+            <Parameter Name="idMarq" Mode="In" Type="Int32" />
+            <Parameter Name="nomMarq" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PS_ModifierVcl">
+            <Parameter Name="idVcl" Mode="In" Type="Int32" />
+            <Parameter Name="imma" Mode="In" Type="String" />
+            <Parameter Name="idMarq" Mode="In" Type="Int32" />
+            <Parameter Name="dateServ" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="PS_SupprimerBon">
+          <Parameter Name="NumBon" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PS_SupprimerMarq">
+          <Parameter Name="idMarq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PS_SupprimerVcl">
+          <Parameter Name="idVcl" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PS_Util">
+            <Parameter Name="nomUtil" Mode="In" Type="String" />
+            <Parameter Name="pass" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PS_Utilisateur" ReturnType="Collection(Db_ALMATRANSModel.PS_Utilisateur_Result)">
+            <Parameter Name="nomUtil" Mode="In" Type="String" />
+            <Parameter Name="pass" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PS_DgvStatis" ReturnType="Collection(Db_ALMATRANSModel.PS_DgvStatis_Result)" />
+          <FunctionImport Name="PS_DateStatis" ReturnType="Collection(Db_ALMATRANSModel.PS_DateStatis_Result)">
+            <Parameter Name="imma" Mode="In" Type="String" />
+            <Parameter Name="dateD" Mode="In" Type="DateTime" />
+            <Parameter Name="dateF" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="PS_ImmStatis" ReturnType="Collection(Db_ALMATRANSModel.PS_ImmStatis_Result)">
+            <Parameter Name="imma" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="PS_AffBon_Result">
+          <Property Type="Int32" Name="Num_Bon" Nullable="false" />
+          <Property Type="DateTime" Name="date_Bon" Nullable="false" />
+          <Property Type="String" Name="nom_station" Nullable="true" MaxLength="45" />
+          <Property Type="Int32" Name="id_Vcl" Nullable="false" />
+          <Property Type="String" Name="nom_Chauf" Nullable="true" MaxLength="30" />
+          <Property Type="Double" Name="Qté" Nullable="false" />
+          <Property Type="Double" Name="prix_littre" Nullable="false" />
+          <Property Type="Double" Name="prix_total" Nullable="true" />
+          <Property Type="String" Name="photo" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="PS_AffBonNum_Result">
+          <Property Type="Int32" Name="Num_Bon" Nullable="false" />
+          <Property Type="DateTime" Name="date_Bon" Nullable="false" />
+          <Property Type="String" Name="nom_station" Nullable="true" MaxLength="45" />
+          <Property Type="Int32" Name="id_Vcl" Nullable="false" />
+          <Property Type="String" Name="nom_Chauf" Nullable="true" MaxLength="30" />
+          <Property Type="Double" Name="Qté" Nullable="false" />
+          <Property Type="Double" Name="prix_littre" Nullable="false" />
+          <Property Type="Double" Name="prix_total" Nullable="true" />
+          <Property Type="String" Name="photo" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="PS_AffMarq_Result">
+          <Property Type="Int32" Name="id_marque" Nullable="false" />
+          <Property Type="String" Name="nom_marque" Nullable="false" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="PS_AffMarqID_Result">
+          <Property Type="Int32" Name="id_marque" Nullable="false" />
+          <Property Type="String" Name="nom_marque" Nullable="false" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="PS_AffVcl_Result">
+          <Property Type="Int32" Name="id_Vcl" Nullable="false" />
+          <Property Type="String" Name="immatriculation" Nullable="false" MaxLength="9" />
+          <Property Type="Int32" Name="id_marque" Nullable="false" />
+          <Property Type="DateTime" Name="date_service" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="PS_AffVclID_Result">
+          <Property Type="Int32" Name="id_Vcl" Nullable="false" />
+          <Property Type="String" Name="immatriculation" Nullable="false" MaxLength="9" />
+          <Property Type="Int32" Name="id_marque" Nullable="false" />
+          <Property Type="DateTime" Name="date_service" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="PS_Utilisateur_Result">
+          <Property Type="Int32" Name="id_Util" Nullable="false" />
+          <Property Type="String" Name="nom_Util" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="mot_passe" Nullable="false" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="PS_DgvStatis_Result">
+          <Property Type="String" Name="immatriculation" Nullable="false" MaxLength="9" />
+          <Property Type="DateTime" Name="date_service" Nullable="false" />
+          <Property Type="Double" Name="Quantité" Nullable="false" />
+          <Property Type="Double" Name="Prix_Total" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="PS_DateStatis_Result">
+          <Property Type="String" Name="immatriculation" Nullable="false" MaxLength="9" />
+          <Property Type="DateTime" Name="date_service" Nullable="false" />
+          <Property Type="Double" Name="Quantité" Nullable="false" />
+          <Property Type="Double" Name="Prix_Total" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="PS_ImmStatis_Result">
+          <Property Type="String" Name="immatriculation" Nullable="false" MaxLength="9" />
+          <Property Type="DateTime" Name="date_service" Nullable="false" />
+          <Property Type="Double" Name="Quantité" Nullable="false" />
+          <Property Type="Double" Name="Prix_Total" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Db_ALMATRANSModelStoreContainer" CdmEntityContainer="Db_ALMATRANSEntities">
+          <EntitySetMapping Name="Bons">
+            <EntityTypeMapping TypeName="Db_ALMATRANSModel.Bon">
+              <MappingFragment StoreEntitySet="Bon">
+                <ScalarProperty Name="Num_Bon" ColumnName="Num_Bon" />
+                <ScalarProperty Name="date_Bon" ColumnName="date_Bon" />
+                <ScalarProperty Name="nom_station" ColumnName="nom_station" />
+                <ScalarProperty Name="id_Vcl" ColumnName="id_Vcl" />
+                <ScalarProperty Name="nom_Chauf" ColumnName="nom_Chauf" />
+                <ScalarProperty Name="Qté" ColumnName="Qté" />
+                <ScalarProperty Name="prix_littre" ColumnName="prix_littre" />
+                <ScalarProperty Name="prix_total" ColumnName="prix_total" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Marques">
+            <EntityTypeMapping TypeName="Db_ALMATRANSModel.Marque">
+              <MappingFragment StoreEntitySet="Marque">
+                <ScalarProperty Name="id_marque" ColumnName="id_marque" />
+                <ScalarProperty Name="nom_marque" ColumnName="nom_marque" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Utilisateurs">
+            <EntityTypeMapping TypeName="Db_ALMATRANSModel.Utilisateur">
+              <MappingFragment StoreEntitySet="Utilisateur">
+                <ScalarProperty Name="id_Util" ColumnName="id_Util" />
+                <ScalarProperty Name="nom_Util" ColumnName="nom_Util" />
+                <ScalarProperty Name="mot_passe" ColumnName="mot_passe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Véhicule">
+            <EntityTypeMapping TypeName="Db_ALMATRANSModel.Véhicule">
+              <MappingFragment StoreEntitySet="Véhicule">
+                <ScalarProperty Name="id_Vcl" ColumnName="id_Vcl" />
+                <ScalarProperty Name="immatriculation" ColumnName="immatriculation" />
+                <ScalarProperty Name="id_marque" ColumnName="id_marque" />
+                <ScalarProperty Name="date_service" ColumnName="date_service" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="PS_AffBon" FunctionName="Db_ALMATRANSModel.Store.PS_AffBon">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Db_ALMATRANSModel.PS_AffBon_Result">
+                <ScalarProperty Name="Num_Bon" ColumnName="Num_Bon" />
+                <ScalarProperty Name="date_Bon" ColumnName="date_Bon" />
+                <ScalarProperty Name="nom_station" ColumnName="nom_station" />
+                <ScalarProperty Name="id_Vcl" ColumnName="id_Vcl" />
+                <ScalarProperty Name="nom_Chauf" ColumnName="nom_Chauf" />
+                <ScalarProperty Name="Qté" ColumnName="Qté" />
+                <ScalarProperty Name="prix_littre" ColumnName="prix_littre" />
+                <ScalarProperty Name="prix_total" ColumnName="prix_total" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PS_AffBonNum" FunctionName="Db_ALMATRANSModel.Store.PS_AffBonNum">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Db_ALMATRANSModel.PS_AffBonNum_Result">
+                <ScalarProperty Name="Num_Bon" ColumnName="Num_Bon" />
+                <ScalarProperty Name="date_Bon" ColumnName="date_Bon" />
+                <ScalarProperty Name="nom_station" ColumnName="nom_station" />
+                <ScalarProperty Name="id_Vcl" ColumnName="id_Vcl" />
+                <ScalarProperty Name="nom_Chauf" ColumnName="nom_Chauf" />
+                <ScalarProperty Name="Qté" ColumnName="Qté" />
+                <ScalarProperty Name="prix_littre" ColumnName="prix_littre" />
+                <ScalarProperty Name="prix_total" ColumnName="prix_total" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PS_AffMarq" FunctionName="Db_ALMATRANSModel.Store.PS_AffMarq">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Db_ALMATRANSModel.PS_AffMarq_Result">
+                <ScalarProperty Name="id_marque" ColumnName="id_marque" />
+                <ScalarProperty Name="nom_marque" ColumnName="nom_marque" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PS_AffMarqID" FunctionName="Db_ALMATRANSModel.Store.PS_AffMarqID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Db_ALMATRANSModel.PS_AffMarqID_Result">
+                <ScalarProperty Name="id_marque" ColumnName="id_marque" />
+                <ScalarProperty Name="nom_marque" ColumnName="nom_marque" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PS_AffVcl" FunctionName="Db_ALMATRANSModel.Store.PS_AffVcl">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Db_ALMATRANSModel.PS_AffVcl_Result">
+                <ScalarProperty Name="id_Vcl" ColumnName="id_Vcl" />
+                <ScalarProperty Name="immatriculation" ColumnName="immatriculation" />
+                <ScalarProperty Name="id_marque" ColumnName="id_marque" />
+                <ScalarProperty Name="date_service" ColumnName="date_service" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PS_AffVclID" FunctionName="Db_ALMATRANSModel.Store.PS_AffVclID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Db_ALMATRANSModel.PS_AffVclID_Result">
+                <ScalarProperty Name="id_Vcl" ColumnName="id_Vcl" />
+                <ScalarProperty Name="immatriculation" ColumnName="immatriculation" />
+                <ScalarProperty Name="id_marque" ColumnName="id_marque" />
+                <ScalarProperty Name="date_service" ColumnName="date_service" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PS_AjouterBon" FunctionName="Db_ALMATRANSModel.Store.PS_AjouterBon" />
+          <FunctionImportMapping FunctionImportName="PS_AjouterMarq" FunctionName="Db_ALMATRANSModel.Store.PS_AjouterMarq" />
+          <FunctionImportMapping FunctionImportName="PS_AjouterVcl" FunctionName="Db_ALMATRANSModel.Store.PS_AjouterVcl" />
+          <FunctionImportMapping FunctionImportName="PS_ModifierBon" FunctionName="Db_ALMATRANSModel.Store.PS_ModifierBon" />
+          <FunctionImportMapping FunctionImportName="PS_ModifierMarq" FunctionName="Db_ALMATRANSModel.Store.PS_ModifierMarq" />
+          <FunctionImportMapping FunctionImportName="PS_ModifierVcl" FunctionName="Db_ALMATRANSModel.Store.PS_ModifierVcl" />
+          <FunctionImportMapping FunctionImportName="PS_SupprimerBon" FunctionName="Db_ALMATRANSModel.Store.PS_SupprimerBon" />
+          <FunctionImportMapping FunctionImportName="PS_SupprimerMarq" FunctionName="Db_ALMATRANSModel.Store.PS_SupprimerMarq" />
+          <FunctionImportMapping FunctionImportName="PS_SupprimerVcl" FunctionName="Db_ALMATRANSModel.Store.PS_SupprimerVcl" />
+          <FunctionImportMapping FunctionImportName="PS_Util" FunctionName="Db_ALMATRANSModel.Store.PS_Util" />
+          <FunctionImportMapping FunctionImportName="PS_Utilisateur" FunctionName="Db_ALMATRANSModel.Store.PS_Utilisateur">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Db_ALMATRANSModel.PS_Utilisateur_Result">
+                <ScalarProperty Name="id_Util" ColumnName="id_Util" />
+                <ScalarProperty Name="nom_Util" ColumnName="nom_Util" />
+                <ScalarProperty Name="mot_passe" ColumnName="mot_passe" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PS_DgvStatis" FunctionName="Db_ALMATRANSModel.Store.PS_DgvStatis">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Db_ALMATRANSModel.PS_DgvStatis_Result">
+                <ScalarProperty Name="immatriculation" ColumnName="immatriculation" />
+                <ScalarProperty Name="date_service" ColumnName="date_service" />
+                <ScalarProperty Name="Quantité" ColumnName="Quantité" />
+                <ScalarProperty Name="Prix_Total" ColumnName="Prix Total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PS_DateStatis" FunctionName="Db_ALMATRANSModel.Store.PS_DateStatis">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Db_ALMATRANSModel.PS_DateStatis_Result">
+                <ScalarProperty Name="immatriculation" ColumnName="immatriculation" />
+                <ScalarProperty Name="date_service" ColumnName="date_service" />
+                <ScalarProperty Name="Quantité" ColumnName="Quantité" />
+                <ScalarProperty Name="Prix_Total" ColumnName="Prix Total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PS_ImmStatis" FunctionName="Db_ALMATRANSModel.Store.PS_ImmStatis">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Db_ALMATRANSModel.PS_ImmStatis_Result">
+                <ScalarProperty Name="immatriculation" ColumnName="immatriculation" />
+                <ScalarProperty Name="date_service" ColumnName="date_service" />
+                <ScalarProperty Name="Quantité" ColumnName="Quantité" />
+                <ScalarProperty Name="Prix_Total" ColumnName="Prix Total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
